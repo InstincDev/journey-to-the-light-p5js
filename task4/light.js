@@ -1,18 +1,17 @@
 class Light{
-    constructor(x,y){
-        this.pos = createVector(x,y);
-        this.xSpeed = 15;
-		this.ySpeed = 10;
+    constructor(){
+        this.pos = createVector(200,200);
+        this.xSpeed = -10;
+		this.ySpeed = 5;
         this.angle = 0;
         this.particles = [];
-        this.wall = 100
-        // this.color = color;
     }
 
     emit(num){
         // push particles into particle array
         for(let i=0; i<num; i++){
-            this.particles.push(new Particle(this.pos.x, this.pos.y));
+            this.particles.push(new Particle(this.pos.x, this.pos.y, tint(0,255,255)));
+            this.particles.push(new Particle(this.pos.x, this.pos.y, tint(0,0,255)));
         }
     }
 
@@ -34,6 +33,12 @@ class Light{
                 this.particles.splice(i,1)
             }
         }
+
+    //    noStroke()
+    //     fill('white')
+    //     this.r = map(sin(this.angle), -1,1,13,17)
+    //     circle(this.pos.x,this.pos.y,this.r*2);
+    //     this.angle += 0.4;
     }
 
     move(){
@@ -41,12 +46,12 @@ class Light{
         this.pos.y += this.ySpeed;
     
         // 	wall conditions
-        if (this.pos.x <= -this.wall  || this.pos.x  >= width + this.wall) {
+        if (this.pos.x <= 0  || this.pos.x  >= width) {
           this.xSpeed *= -1;
         }
     
         // 	top and bottom conditions
-        if (this.pos.y  >= height + this.wall || this.pos.y <= -this.wall) {
+        if (this.pos.y  >= height || this.pos.y <= 0) {
             this.ySpeed *= -1;
         }
     }
