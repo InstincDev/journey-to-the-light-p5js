@@ -29,7 +29,6 @@ export default class Ball {
       this.xSpeed *= -1;
     }
 
-
     // 	top and bottom conditions
     if (this.y  >= p5.height + this.size *2 || this.y <= -this.size *2) {
         this.ySpeed *= -1;
