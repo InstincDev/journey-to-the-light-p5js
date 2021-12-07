@@ -1,6 +1,6 @@
 let lights = [];
 let img;
-let counter = 5;
+let counter = 10;
 
 function preload() {
   img = loadImage("texture.png");
@@ -8,7 +8,7 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  lights.push(new Light(200, 200));
+  lights.push(new Light(random(200), random(200)));
 }
 
 function draw() {
@@ -25,7 +25,7 @@ function draw() {
   // move light
   if (counter > 1) {
     for (let light of lights) {
-      light.emit(1);
+      light.emit(2);
       light.applyForce(force);
       light.applyForce(wind);
       light.show();

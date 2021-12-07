@@ -5,7 +5,7 @@ class Particle extends p5.Vector {
     // create random burst of particles
     this.vel.mult(1.5);
     this.acc = createVector(0, 0);
-    this.r = 52;
+    this.r = 65;
     this.lifetime = 255;
     this.color = color;
   }
@@ -24,7 +24,7 @@ class Particle extends p5.Vector {
     this.acc.set(0, 0);
     // length of particle trail
     // smaller num longer trail
-    this.lifetime -= 7;
+    this.lifetime -= 20;
   }
 
   show() {

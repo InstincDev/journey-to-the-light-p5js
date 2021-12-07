@@ -1,11 +1,11 @@
 class Light{
     constructor(x,y){
         this.pos = createVector(x,y);
-        this.xSpeed = 15;
-		this.ySpeed = 10;
+        this.xSpeed = 35;
+		this.ySpeed = 25;
         this.angle = 0;
         this.particles = [];
-        this.wall = 100
+        this.wall = 350
         // this.color = color;
     }
 
