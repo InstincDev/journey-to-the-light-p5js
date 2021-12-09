@@ -1,25 +1,36 @@
-class Light{
-    constructor(){
-        this.pos = createVector(200,200);
+class Lights {
+    constructor(x,y,m){
+        this.pos = createVector(x,y);
         this.xSpeed = -10;
 		this.ySpeed = 5;
         this.angle = 0;
+        this.mass = m;
         this.particles = [];
     }
 
     emit(num){
         // push particles into particle array
         for(let i=0; i<num; i++){
-            this.particles.push(new Particle(this.pos.x, this.pos.y, tint(0,255,255)));
-            this.particles.push(new Particle(this.pos.x, this.pos.y, tint(0,0,255)));
+            this.particles.push(new Particle(this.pos.x, this.pos.y));
+            
         }
     }
 
-    applyForce(force){
-        // apply the forces to the particles
-        for(let particle of this.particles){
-            particle.applyForce(force);
-        }
+    attract(bubble){
+        // the attractors pos - the objets pos
+        let force = p5.Vector.sub(this.pos, bubble.pos);
+        //  magnitude of the distance squared
+        // and then constrained 
+        let distanceSq = constrain(force.magSq(), 125,2500);
+
+        // gravitational constant
+        let G = 25;
+        // strength of the gravitational force
+        let strength = G * (this.mass * bubble.mass) / distanceSq; 
+        // set force to the strength of the gravitational force
+        force.setMag(strength);
+        // apply force to mover
+        bubble.applyForce(force);
     }
 
     update(){
@@ -32,27 +43,6 @@ class Light{
             if(this.particles[i].finished()){
                 this.particles.splice(i,1)
             }
-        }
-
-    //    noStroke()
-    //     fill('white')
-    //     this.r = map(sin(this.angle), -1,1,13,17)
-    //     circle(this.pos.x,this.pos.y,this.r*2);
-    //     this.angle += 0.4;
-    }
-
-    move(){
-        this.pos.x += this.xSpeed;
-        this.pos.y += this.ySpeed;
-    
-        // 	wall conditions
-        if (this.pos.x <= 0  || this.pos.x  >= width) {
-          this.xSpeed *= -1;
-        }
-    
-        // 	top and bottom conditions
-        if (this.pos.y  >= height || this.pos.y <= 0) {
-            this.ySpeed *= -1;
         }
     }
 
