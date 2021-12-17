@@ -1,15 +1,28 @@
 // Use createGraphics() to create a 2D graphics buffer or offscreen canvas
 // this allows smooth image() rendering with tint()
 
-
-let bubbles = [];
+// general population
+let bubblesGen = [];
+// main set
+let bubbles7 = [];
+// colors = [red,orange, yellow, green, blue, indigo, violet]
+let persons = [
+  "red",
+  "orange",
+  "yellow",
+  " green",
+  "blue",
+  "indigo",
+  "mediumpurple",
+];
 let light;
 let img;
 let img2;
-let counter = 12;
+let counter = 10;
+let halfCount = counter / 2;
 let pg;
 // array of createGraphics() canvases, images, and tints
-let pg2=[];
+let pg2 = [];
 
 function preload() {
   img = loadImage("texture.png");
@@ -18,7 +31,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  // create canvas for light particle emmitter 
+  // create canvas for light particle emmitter
   pg = createGraphics(width, height);
   // set image to pg canvas
   pg.tint(255, 255, 255);
@@ -28,16 +41,37 @@ function setup() {
 
   // create separate canvases for each bubble
   // so each bubble can have a random color
-  for (let i = 0; i < 25; i++) {
+
+  // child bubbles
+
+  for (let i = 0; i < 7; i++) {
     // create canvas for ball particle
     pg2[i] = createGraphics(width, height);
     // set randomized colors
-    pg2[i].tint(random(255), random(255), random(255));
+    pg2[i].tint(persons[i]);
     // set image to pg2 canvas
     pg2[i].image(img, 0, 0, width, height);
     // push ball particle and iterator num to bubble array
-    bubbles.push(
-      new Ball(createVector(random(width), random(height)), random(20, 50),i)
+    bubbles7.push(
+      new Ball(createVector(random(width/4,width/2), random(height/2,height)), 10, 80, i)
+    );
+  }
+  // general bubbles
+  for (let i = 8; i < 20; i++) {
+    // create canvas for ball particle
+    pg2[i] = createGraphics(width, height);
+    // set randomized colors
+    pg2[i].tint(random(200), random(200), random(200));
+    // set image to pg2 canvas
+    pg2[i].image(img, 0, 0, width, height);
+    // push ball particle and iterator num to bubble array
+    bubblesGen.push(
+      new Ball(
+        createVector(random(width), random(height)),
+        random(20, 50),
+        random(40, 70),
+        i
+      )
     );
   }
 }
@@ -56,13 +90,20 @@ function draw() {
     light.show();
     light.update();
 
-    for (let bubble of bubbles) {
+    for (let bubble of bubbles7) {
       bubble.move();
       bubble.display();
       light.attract(bubble);
     }
-    
+    for (let bubble of bubblesGen) {
+    bubble.move();
+    bubble.display();
+    light.attract(bubble);
+    bubble.remove();
   }
+  }
+  
+
 }
 
 function checkTime() {

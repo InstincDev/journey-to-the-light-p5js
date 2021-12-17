@@ -1,49 +1,58 @@
 class Ball {
-  constructor(pos,mass, i) {
+  constructor(pos, mass, r, i) {
     this.pos = pos;
-    this.r = random(10, 100);
-    this.colorR = random(255);
-    this.colorG = random(255);
-    this.colorB = random(255);
+    this.r = r;
     this.vel = p5.Vector.random2D();
-    this.vel.mult(5);
-    this.acc = createVector(0,0);
+    this.vel.mult(6);
+    this.acc = createVector(0, 0);
     this.mass = mass;
     this.angle = 0;
     this.angleV = 0.02;
     this.angleA = 0;
     // use iterator num to select pg2 array index
-    this.i=i
+    this.i = i;
+    this.lifetime = 255;
   }
 
-  applyForce(force){
+  applyForce(force) {
     let f = p5.Vector.div(force, this.mass);
-    this.acc.add(f)
+    this.acc.add(f);
+  }
+
+  finished() {
+    return this.lifetime < 0;
+  }
+
+  remove() {
+    for (let i = bubblesGen.length - 1; i >= 0; i--) {
+      // control the lifetime of the general bubbles
+      this.lifetime -= random(0.08,0.1);
+      if (bubblesGen[i].finished()) {
+        bubblesGen.splice(i, 1);
+      }
+    }
   }
 
   move() {
-
     // apply the acceleration the the velocity
     this.vel.add(this.acc);
-    
+
     // limit the velocity
     // this.vel.limit(0.5);
-    
+
     // apply velocity to the pos
     this.pos.add(this.vel);
-  //  set angle acc to acc of pos x 
-    this.angleA = this.acc.x/50;
-
+    //  set angle acc to acc of pos x
+    this.angleA = this.acc.x / 40;
 
     // velocity to acceleration
     this.angleV += this.angleA;
     // angle to velocity
     this.angle += this.angleV;
 
-     // reset acceleration after every frame
-    this.acc.set(0,0);
+    // reset acceleration after every frame
+    this.acc.set(0, 0);
   }
-
 
   display() {
     imageMode(CENTER);
