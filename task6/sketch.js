@@ -23,57 +23,42 @@ let mapPg;
 let pg2 = [];
 let mover;
 function preload() {
-  
-  mapImg = loadImage("map.png")
+  mapImg = loadImage("map.png");
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  // create canvas for light particle emmitter
-  
 
-   
   mapPg = createGraphics(width, height);
-  // set image to pg canvas
-
-  // 
-   
-  
-
-  // child bubbles
-
-  // for (let i = 0; i < 1; i++) {
-  //   // create canvas for ball particle
-    
-  //   bubbles7.push(
-  //    
-  //   );
-  // }
-  mover =new Travel();
+  mover = new Travel(
+    [
+      createVector((87 / 125) * width, (73 / 100) * height),
+      createVector((87 / 125) * width, (73 / 100) * height),
+      createVector((53 / 500) * width, (33 / 100) * height),
+      createVector((53 / 500) * width, (33 / 100) * height),
+      createVector((9 / 50) * width, (31 / 50) * height),
+      createVector((9 / 50) * width, (31 / 50) * height),
+      createVector((453 / 500) * width, (17 / 50) * height),
+      createVector((453 / 500) * width, (17 / 50) * height),
+      createVector((37 / 50) * width, (3 / 4) * height),
+      createVector((37 / 50) * width, (3 / 4) * height),
+    ],
+    "red"
+  );
 }
 
-
-
-
 function draw() {
-// clear();
-background("aqua")
- tint(255,227);
- image(mapImg,-5,5, width, height);
-  
+  // clear();
+  background("aqua");
+  tint(255, 150);
+  image(mapImg, -10, 5, width, height);
+
   noStroke();
- fill("white") 
- ellipse((87/125)*width, (73/100)*height, 10)
- ellipse((53/500)*width, (33/100)*height, 10)
- ellipse((9/50)*width, (31/50)*height, 10)
- ellipse((453/500)*width, (17/50)*height, 10)
- ellipse((37/50)*width, (3/4)*height, 10)
+  fill("white");
+  // mover.move();
 
-
-text(floor(mouseX) + "," + floor(mouseY), mouseX + 10, mouseY)
   checkTime();
-  mover.move();
-
+  text(floor(mouseX) + "," + floor(mouseY), mouseX + 10, mouseY);
 }
 
 function checkTime() {

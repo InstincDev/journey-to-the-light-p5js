@@ -1,26 +1,34 @@
+class Travel {
+  constructor(locs, color) {
+    // create 2 sets of each coord, use the first set for (startX, startY),
+    // use the second set for (endX, endY). Mutate the second set.
+    this.locs = locs;
+    this.color = color
+    this.speed = 1;
+  }
 
-class Travel{
-    constructor(){
-        this.locs = [createVector((87/125)*width, (73/100)*height),
-            createVector((53/500)*width, (33/100)*height),
-            createVector((9/50)*width, (31/50)*height),
-            createVector((453/500)*width, (17/50)*height)]
-        
-        this.speed = 1;
+  move() {
+      
+    // iterate through array of coords
+    for (let i = 0; i < this.locs.length; i ++) {
+      
+      let startX = this.locs[i].x;
+      let startY = this.locs[i].y;
+      let endX = this.locs[i+1].x;
+      let endY = this.locs[i+1].y;
+      
+      // set line start and end points
+       
+      stroke(this.color);
+      strokeWeight(3);
+      line(startX, startY, endX, endY);
+      
+      fill("white")
+      noStroke();
+      ellipse(startX, startY, 10);
+
     }
+ 
+  }
 
-    move(){
-        fill('red');
-        stroke('red')
-        strokeWeight(3)
-        let newArr = this.locs.slice(0,1) 
-        // console.log(newArr)
-        line(newArr.x,newArr.y,this.locs[0].x,this.locs[0].y)
-      this.locs[0].x += this.speed;
-        
-    }
-
-    next(){
-        return point = this.locs[0];
-        }
 }
