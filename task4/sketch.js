@@ -10,10 +10,10 @@ let persons = [
   "red",
   "orange",
   "yellow",
-  " green",
+  "green",
   "blue",
-  "indigo",
-  "mediumpurple",
+  "purple",
+  "mediumorchid",
 ];
 let light;
 let img;
@@ -53,7 +53,12 @@ function setup() {
     pg2[i].image(img, 0, 0, width, height);
     // push ball particle and iterator num to bubble array
     bubbles7.push(
-      new Ball(createVector(random(width/4,width/2), random(height/2,height)), 10, 80, i)
+      new Ball(
+        createVector(random(width / 4, width / 2), random(height / 2, height)),
+        10,
+        80,
+        i
+      )
     );
   }
   // general bubbles
@@ -96,14 +101,12 @@ function draw() {
       light.attract(bubble);
     }
     for (let bubble of bubblesGen) {
-    bubble.move();
-    bubble.display();
-    light.attract(bubble);
-    bubble.remove();
+      bubble.move();
+      bubble.display();
+      light.attract(bubble);
+      bubble.remove();
+    }
   }
-  }
-  
-
 }
 
 function checkTime() {
