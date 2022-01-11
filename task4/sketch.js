@@ -1,6 +1,14 @@
 // Use createGraphics() to create a 2D graphics buffer or offscreen canvas
 // this allows smooth image() rendering with tint()
 
+let canvas;
+let testCount = 600; // this is 3 seconds
+
+var capturer = new CCapture({
+  format: "webm",
+  quality: 100,
+});
+
 // general population
 let bubblesGen = [];
 // main set
@@ -25,15 +33,21 @@ let pg;
 let pg2 = [];
 
 function preload() {
-  img = loadImage("texture.png");
+  // center light
+  img = loadImage("sun.png");
+  // revolving lights
+  img2 = loadImage("sun.png");
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  let p5Canvas = createCanvas(windowWidth, windowHeight);
+  canvas = p5Canvas.canvas;
+  // capturer.start();
 
   // create canvas for light particle emmitter
   pg = createGraphics(width, height);
   // set image to pg canvas
+  // pg.tint(64, 225, 208);
   pg.tint(255, 255, 255);
   pg.image(img, 0, 0, width, height);
   // create light emmitter
@@ -50,14 +64,15 @@ function setup() {
     // set randomized colors
     pg2[i].tint(persons[i]);
     // set image to pg2 canvas
-    pg2[i].image(img, 0, 0, width, height);
+    pg2[i].image(img2, 0, 0, width, height);
     // push ball particle and iterator num to bubble array
     bubbles7.push(
       new Ball(
         createVector(random(width / 4, width / 2), random(height / 2, height)),
         10,
-        80,
-        i
+        90,
+        i,
+        persons[i]
       )
     );
   }
@@ -68,21 +83,22 @@ function setup() {
     // set randomized colors
     pg2[i].tint(random(200), random(200), random(200));
     // set image to pg2 canvas
-    pg2[i].image(img, 0, 0, width, height);
+    pg2[i].image(img2, 0, 0, width, height);
     // push ball particle and iterator num to bubble array
     bubblesGen.push(
       new Ball(
         createVector(random(width), random(height)),
-        random(20, 50),
-        random(40, 70),
-        i
+        random(4, 10),
+        random(50, 80),
+        i,
+        random(255)
       )
     );
   }
 }
 
 function draw() {
-  clear();
+  // clear();
   background(0);
   // blendMode(ADD);
 
@@ -91,7 +107,7 @@ function draw() {
 
   // run animation
   if (counter > 0) {
-    light.emit(1.5);
+    // light.emit(2);
     light.show();
     light.update();
 
@@ -107,7 +123,22 @@ function draw() {
       bubble.remove();
     }
   }
+
+  // if(frameCount <testCount){
+  //   capturer.capture(canvas);
+  // }else if(frameCount === testCount){
+  //   capturer.stop();
+  //   capturer.save();
+  // }
 }
+
+function render() {
+  requestAnimationFrame(render);
+  // rendering stuff ...
+  capturer.capture(canvas);
+}
+
+// render()
 
 function checkTime() {
   // use frame count modulo of 60 (1 second)

@@ -1,5 +1,5 @@
 class Ball {
-  constructor(pos, mass, r, i) {
+  constructor(pos, mass, r, i,color) {
     this.pos = pos;
     this.r = r;
     this.vel = p5.Vector.random2D();
@@ -12,6 +12,7 @@ class Ball {
     // use iterator num to select pg2 array index
     this.i = i;
     this.lifetime = 255;
+    this.color = color
   }
 
   applyForce(force) {
@@ -26,7 +27,7 @@ class Ball {
   remove() {
     for (let i = bubblesGen.length - 1; i >= 0; i--) {
       // control the lifetime of the general bubbles
-      this.lifetime -= random(0.08,0.1);
+      this.lifetime -= random(0.09,0.1);
       if (bubblesGen[i].finished()) {
         bubblesGen.splice(i, 1);
       }
@@ -57,5 +58,8 @@ class Ball {
   display() {
     imageMode(CENTER);
     image(pg2[this.i], this.pos.x, this.pos.y, this.r, this.r);
+    fill(this.color);
+    // noStroke();
+    // ellipse(this.pos.x, this.pos.y, this.r/4)
   }
 }
