@@ -3,9 +3,9 @@ class Particle extends p5.Vector {
     super(x, y);
     this.vel = p5.Vector.random2D();
     // create random burst of particles
-    this.vel.mult(1.5);
+    this.vel.mult(10);
     this.acc = createVector(0, 0);
-    this.r = 65;
+    this.r = 95;
     this.lifetime = 255;
     this.color = color;
   }
@@ -24,13 +24,12 @@ class Particle extends p5.Vector {
     this.acc.set(0, 0);
     // length of particle trail
     // smaller num longer trail
-    this.lifetime -= 20;
+    this.lifetime -= 45;
   }
 
   show() {
     imageMode(CENTER);
-    // this.color;
-    // tint(0, 0, 255);
     image(img, this.x, this.y, this.r, this.r);
   }
+  
 }
