@@ -1,3 +1,10 @@
 # journey-to-the-light
-code art files for client video presentation 
-for client privacy all images have been replaced with stock photos
+p5.js art files for client video presentation
+
+## Task 1
+Shooting Star
+Created using - 
+*Vectors
+*Particle Systems
+*Force Simulation
+
